@@ -1,20 +1,9 @@
-var fib = Array(1, 2)
-var sum = 0
+var fibs = Seq(1, 2)
 
-def calc(arr: Array[Int]): Int = {
-  arr(arr.length - 1) + arr(arr.length - 2)
-}
+def next = fibs(fibs.length - 1) + fibs(fibs.length - 2)
 
-while ({ fib(fib.length - 1) < 4e+6 }) {
-  fib :+= calc(fib)
-}
+while (next < 4000000) fibs = fibs :+ next
 
-fib.foreach((n: Int) => {
-  if (n % 2 == 0) {
-    sum += n;
-  }
-})
+val sum = fibs.foldLeft(0) { (sum, fib) => if (fib % 2 == 0) sum + fib else sum }
 
 println(sum)
-
-sum
